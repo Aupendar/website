@@ -125,6 +125,21 @@
       <a href="#contact">Contact</a>
     </nav>
   </header>
+    <h2>Search the Site</h2>
+  <form method="GET">
+    <input type="text" name="query" placeholder="Search here..." />
+    <button type="submit">Search</button>
+  </form>
+
+  <script>
+    // Vulnerable XSS: Reflects input without sanitization
+    const params = new URLSearchParams(window.location.search);
+    const searchTerm = params.get("query");
+    if (searchTerm) {
+      document.getElementById("result").textContent = searchTerm;
+ // 🚨 No escaping!
+    }
+  </script>
 
   <section class="hero">
     <h2>Empowering Students to Create a Better Tomorrow</h2>
