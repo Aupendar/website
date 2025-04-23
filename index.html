@@ -125,19 +125,24 @@
       <a href="#contact">Contact</a>
     </nav>
   </header>
-    <h2>Search the Site</h2>
+   <h2>Search the Site</h2>
   <form method="GET">
-    <input type="text" name="query" placeholder="Search here..." />
+    <input type="text" name="query" placeholder="Search here...">
     <button type="submit">Search</button>
   </form>
 
+  <hr>
+  <h3>Search Results:</h3>
+  <div id="output"></div>
+
   <script>
-    // Vulnerable XSS: Reflects input without sanitization
+    // Parse query param
     const params = new URLSearchParams(window.location.search);
-    const searchTerm = params.get("query");
-    if (searchTerm) {
-      document.getElementById("result").textContent = searchTerm;
- // 🚨 No escaping!
+    const query = params.get("query");
+
+    // Intentionally insecure — vulnerable to XSS
+    if (query) {
+      document.getElementById("output").innerHTML = "You searched for: " + query;
     }
   </script>
 
